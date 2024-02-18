@@ -10,11 +10,9 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         locations = validated_data.pop('location', None)
-        print("on line 13: ",locations)
         instance = super().create(validated_data)
         if locations:
             instance.location = ','.join(locations)
-            print("on line 17: ",instance.location)
             instance.save()
         return instance
     
