@@ -6,7 +6,7 @@ def generate_unique_filename(filename, folder):
     ext = filename.split('.')[-1]
     name = filename.split('.')[0]
     date_time_str = datetime.now().strftime("%Y%m%d%H%M%S")
-    return os.path.join('static', folder, f'{name}-{date_time_str}.{ext}')
+    return os.path.join('media', folder, f'{name}-{date_time_str}.{ext}')
 
 def resume_file_path(instance, filename):
     return generate_unique_filename(filename, 'resumes')
