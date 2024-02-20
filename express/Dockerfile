@@ -6,5 +6,4 @@ RUN npm install
 COPY ./tsconfig.json ./
 COPY ./src ./src
 COPY ./public ./public
-COPY ./.env ./
 CMD ["npm", "start"]
