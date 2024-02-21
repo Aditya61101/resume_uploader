@@ -58,7 +58,7 @@ function App() {
   const getProfiles = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8000/api/resumes");
+      const res = await fetch("https://resume-uploader.onrender.com/api/resumes");
       const result = await res.json();
       setProfiles(result);
     } catch (error) {
