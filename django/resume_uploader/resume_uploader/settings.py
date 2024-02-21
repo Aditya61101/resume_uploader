@@ -94,6 +94,7 @@ DATABASES = {
     }
 }
 
+CLOUDINARY_URL = os.environ.get("CLOUDINARY_URL")
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -130,11 +131,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = '/resume-uploader.onrender.com/media'
 if not DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build')
-    # MEDIA_ROOT = BASE_DIR / 'media'
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
