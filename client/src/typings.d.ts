@@ -6,7 +6,7 @@ export type Profile = {
     state: string;
     location: string[];
     id: number|string;
-    image: string;
-    resume: string;
+    image_cloudinary_url: string;
+    resume_cloudinary_url: string;
     uploaded_at:Date;
 }
