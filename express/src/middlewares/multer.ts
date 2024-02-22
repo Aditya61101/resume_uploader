@@ -1,14 +1,7 @@
 import multer from "multer";
 
 const upload = multer({
-    storage: multer.diskStorage({
-        destination: (_, file, cb) => {
-            cb(null, `public/uploads/${file.fieldname}`);
-        },
-        filename: (_, file, cb) => {
-            cb(null, Date.now() + "-" + file.originalname);
-        },
-    }),
+    storage: multer.memoryStorage(),
     fileFilter: (_, file, cb) => {
         const allowedTypes = [
             'application/pdf',

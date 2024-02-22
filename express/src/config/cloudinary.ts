@@ -6,4 +6,12 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-export default cloudinary;
+const uploadToCloudinary = async (file: Express.Multer.File) => {
+    try {
+        const result = await cloudinary.uploader.upload(file.buffer.toString('base64'));
+        return result.secure_url;
+    } catch (err) {
+        throw new Error('Error uploading file to Cloudinary.');
+    }
+};
+export default uploadToCloudinary;

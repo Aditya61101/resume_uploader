@@ -58,9 +58,10 @@ function App() {
   const getProfiles = async () => {
     setLoading(true);
     try {
-      const res = await fetch("https://resume-uploader.onrender.com/api/resumes");
+      const res = await fetch("https://express-resume-uploader.onrender.com/api/resumes");
       const result = await res.json();
-      setProfiles(result);
+      if(result.profiles) setProfiles(result.profiles);
+      else setProfiles(result);
     } catch (error) {
       console.log(error);
     } finally {
@@ -123,7 +124,7 @@ function App() {
 
     if (name && email) {
       try {
-        const res = await fetch("https://resume-uploader.onrender.com/api/resume-upload", {
+        const res = await fetch("https://express-resume-uploader.onrender.com/api/resume-upload", {
           method: "POST",
           body: data
         })
