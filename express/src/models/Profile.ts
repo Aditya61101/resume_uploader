@@ -23,11 +23,11 @@ const Profile = new mongoose.Schema({
     location:{
         type:String
     },
-    image:{
+    image_cloudinary_url:{
         type:String,
         required:true
     },
-    resume:{
+    resume_cloudinary_url:{
         type:String,
         required:true
     }
@@ -37,5 +37,7 @@ const Profile = new mongoose.Schema({
 export const ProfileModel = mongoose.model('Profile',Profile);
 
 //actions
-export const saveProfile = (body:Request, resume:string, image:string) => ProfileModel.create({...body, resume, image});
+
+export const saveProfile = (body:Request, resume_cloudinary_url:string, image_cloudinary_url:string) => ProfileModel.create({...body, resume_cloudinary_url, image_cloudinary_url});
+
 export const allProfiles = () => ProfileModel.find();
