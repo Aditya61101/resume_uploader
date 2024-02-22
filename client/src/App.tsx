@@ -185,9 +185,9 @@ function App() {
               </RadioGroup>
             </FormControl>
             <FormControl component='fieldset' fullWidth margin='normal'>
-              <FormLabel component='legend'>Preferred Job Location:</FormLabel>
+              <FormLabel component='legend'>Preferred Job Location</FormLabel>
               <FormGroup row>
-                {['Delhi', 'Mumbai', 'Bangalore', 'Ranchi', 'Kolkata'].map((item, index) => {
+                {['Delhi', 'Mumbai', 'Bangalore', 'Hyderabad', 'Kolkata'].map((item, index) => {
                   return <FormControlLabel key={index} control={<Checkbox checked={!!checkboxState[item]}
                     onChange={(e) => {
                       const updatedState = { ...checkboxState };
@@ -204,11 +204,11 @@ function App() {
                 <Input accept="image/*" id="profile-photo" type="file" onChange={(e) => {
                   if (e.target.files) setProfileImage(e.target.files[0]);
                 }} />
-                <Button variant='contained' component='span'>Upload Photo </Button>
+                <Button variant='contained' component='span'>Upload Photo</Button>
               </label>
               <label htmlFor="resume-file">
                 <Input accept=".doc,.docx,.pdf" id="resume-file" type="file" onChange={(e) => { if (e.target.files) setResume(e.target.files[0]) }} />
-                <Button variant="contained" component="span">Upload File</Button>
+                <Button variant="contained" component="span">Upload Resume</Button>
               </label>
             </Stack>
             <Button type='submit' variant='contained' sx={{ mt: 3, mb: 2, px: 5 }} color="success">Submit</Button>
@@ -231,6 +231,7 @@ function App() {
                   <TableCell align="center">Gender</TableCell>
                   <TableCell align="center">Preferred Locations</TableCell>
                   <TableCell align="center">Avatar</TableCell>
+                  <TableCell align="center">Resume File</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -243,6 +244,7 @@ function App() {
                     <TableCell align="center">{profile.gender}</TableCell>
                     <TableCell align="center">{profile?.location?.join(", ")}</TableCell>
                     <TableCell align="center"><Avatar src={profile.image_cloudinary_url} /></TableCell>
+                    <TableCell align='center'> <a href={profile.resume_cloudinary_url} target='_blank' referrerPolicy='no-referrer'>Resume file</a></TableCell>
                   </TableRow>
                 })}
               </TableBody>
