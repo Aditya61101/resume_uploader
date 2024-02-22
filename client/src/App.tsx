@@ -240,7 +240,7 @@ function App() {
                   return <TableRow key={index}>
                     <TableCell align="center">{profile.name}</TableCell>
                     <TableCell align="center">{profile.email}</TableCell>
-                    <TableCell align="center">{profile.dob}</TableCell>
+                    { profile.dob.includes('T') ? <TableCell align="center">{profile.dob.split('T')[0]}</TableCell> : <TableCell align="center">{profile.dob}</TableCell> }
                     <TableCell align="center">{profile.state}</TableCell>
                     <TableCell align="center">{profile.gender}</TableCell>
                     <TableCell align="center">{profile?.location?.join(", ")}</TableCell>

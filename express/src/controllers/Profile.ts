@@ -1,21 +1,37 @@
 import { Request, Response } from 'express';
 import { allProfiles, saveProfile } from '../models/Profile';
-import uploadToCloudinary from '../config/cloudinary';
+import cloudinary from '../config/cloudinary';
 
-type CustomRequest = Request & {
-    files: { [fieldname: string]: Express.Multer.File[] };
-}
+const uploadToCloudinary = async (file: Express.Multer.File) => {
+    try {
+        const result: any = await new Promise((resolve, reject) => {
+            const uploadStream = cloudinary.uploader.upload_stream((error, result) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(result);
+                }
+            })
+            uploadStream.end(file.buffer);
+        });
+        return result.secure_url;
+    } catch (err) {
+        console.log(err);
+        throw new Error('Error uploading file to Cloudinary.');
+    }
+};
+
 export const createProfile = async (req: Request, res: Response) => {
     try {
-        if (!req.file || !req.files || !req.body.name || !req.body.email) {
+        if (!req.files || !req.body.name || !req.body.email) {
             return res.status(400).json({ message: 'No files uploaded.' });
         }
-        const imageFile = req.file;
-        const resumeFile = (req.files as Express.Multer.File[])[0];
+        const imageFile = (req.files as { [fieldname: string]: Express.Multer.File[] })['image'][0];
+        const resumeFile = (req.files as { [fieldname: string]: Express.Multer.File[] })['resume'][0];
 
-        const image_cloudinary_url = await uploadToCloudinary(imageFile);
-        const resume_cloudinary_url = await uploadToCloudinary(resumeFile);
-        
+        const image_cloudinary_url = await uploadToCloudinary(imageFile) as string;
+        const resume_cloudinary_url = await uploadToCloudinary(resumeFile) as string;
+
         const profile = await saveProfile(req.body, resume_cloudinary_url, image_cloudinary_url);
         res.status(201).json({ profile });
     } catch (error: any) {
